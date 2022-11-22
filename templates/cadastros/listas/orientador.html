@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>Orientador - Arquivos</title>
+{% endblock %}
+{% block conteudo %}
+    {% include 'partils/_alertas.html' %}
+    <div>
+        <h2>Lista de Orientadores
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'criar_orientador' %}" class="btn btn-primary float-end"><i class="bi bi-plus-lg"></i> Adicionar Orientador</a>
+        {% endif %}
+        </h2>
+        <hr>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="tabela-listar">
+            <thead>
+                <tr>
+                    <th scope="col">Primeiro nome</th>
+                    <th scope="col">Segundo nome</th>
+                    <th scope="col">Curriculo</th>
+                    {% if request.user.is_authenticated %}
+                    <th scope="col">Ações</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for orientador in object_list %}
+                <tr>
+                    <td>{{ orientador.primeiro_nome }}</td>
+                    <td>{{ orientador.segundo_nome }}</td>
+                    <td>{{ orientador.curriculo }}</td>
+                    <td>
+                        <a href="{% url 'listar_orientador' orientador.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-book"></i> TCCs</a>
+                    </td>
+                    {% if request.user.is_authenticated %}
+                    <td>
+                        <a href="{% url 'editar_orientador' orientador.pk %}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
+                        <a href="{% url 'deletar_orientador' orientador.pk %}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Excluir</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Nenhum orientador registrado.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
 
-</body>
-</html>
+{% block scripts %}
+    <script src="{% static 'js/paginacao.js' %}"></script>
+{% endblock %}

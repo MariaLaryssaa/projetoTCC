@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>TCC - {{ tcc.titulo }}</title>
+{% endblock %}
+{% block conteudo %}
+    <div class="page-header text-center py-3">
+        <h1>{{ tcc.titulo }}</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {% if tcc.capa_tcc == '' %}
+                    <img src="{% static 'img/tcc.png' %}" class="card-img-top" alt="...">
+                {% else %}
+                    <img src="{{ tcc.capa.url }}" class="card-img-top" alt="...">
+                {% endif %}
+        </div>
+        <div class="col-sm-8">
+            <p class="h4"><strong>Orientador: </strong>{{ tcc.orientador }}</p>
+            <p class="h4"><strong>Autor(es): </strong></p>
+            {% for autor in tcc.autor.all %}
+                <p class="h4">{{ autor.nome }}</p>
+            {% endfor %}
+            <p class="h4"><strong>Ano do documento: </strong>{{ tcc.ano_documento }}</p>
+            <p class="h4"><strong>Palavras chave: </strong>{{ livro.palavra_chave }}</p>
+            <p class="h4"><strong>Curso: </strong>{{ tcc.curso.nome }}</p>
+            <p class="h4"><strong>Resumo: </strong></p>
+            <p class="h5">{{ tcc.resumo }}</p>
+            <p class="h4"><strong>TCC em PDF:</strong> <a href="{{ tcc.tcc_pdf.url }}">Abrir</a></p>
+        </div>
+    </div>
+{% endblock %}
