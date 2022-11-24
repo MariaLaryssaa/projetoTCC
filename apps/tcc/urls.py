@@ -6,6 +6,7 @@ urlpatterns = [
     path('dashboard/tcc/', TCCListPorUsuario.as_view(), name='listar_tcc_usuario'),
     path('listar/tcc_autor/<int:autor>/', TCCAutorList.as_view(), name='listar_tcc_autor'),
     path('listar/tcc_curso/<int:curso>/', TCCCursoList.as_view(), name='listar_tcc_curso'),
+    path('listar/tcc_orientador/<int:orientador>/', TCCOrientadorList.as_view(), name='listar_tcc_orientador'),
     path('detalhar/tcc/<int:pk>/', TCCDetail.as_view(), name='detalhar_tcc_publicado'),
     path('criar/tcc/', TCCCreate.as_view(), name='criar_tcc'),
     path('editar/tcc/<int:pk>/', TCCUpdate.as_view(), name='editar_tcc'),

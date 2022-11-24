@@ -30,9 +30,9 @@
                 <tr>
                     <td>{{ orientador.primeiro_nome }}</td>
                     <td>{{ orientador.segundo_nome }}</td>
-                    <td>{{ orientador.curriculo }}</td>
+                    <td><a href="{{ orientador.curriculo }}">Abrir</a></td>
                     <td>
-                        <a href="{% url 'listar_orientador' orientador.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-book"></i> TCCs</a>
+                        <a href="{% url 'listar_tcc_orientador' orientador.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-book"></i> TCCs</a>
                     </td>
                     {% if request.user.is_authenticated %}
                     <td>

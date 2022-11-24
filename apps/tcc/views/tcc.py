@@ -30,7 +30,7 @@ class TCCUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TCCForm
     success_message = 'TCC atualizado com sucesso!'
     template_name = "cadastros/form.html"
-    success_url = reverse_lazy("listar_TCCs_usuario")
+    success_url = reverse_lazy("listar_tcc_usuario")
 
     def get_context_data(self, **kwargs):
         context = super(UpdateView, self).get_context_data(**kwargs)
@@ -61,7 +61,7 @@ class TCCDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 class TCCList(ListView):
     model = TCC
-    template_name = "templates/index.html"
+    template_name = "index.html"
 
 class TCCDetail(DetailView):
     model = TCC
@@ -77,9 +77,9 @@ class TCCListPorUsuario(LoginRequiredMixin, ListView):
         nome = self.request.GET.get('nome')
 
         if nome:
-            return TCC.objects.filter(usuario=self.request.user, titulo__icontains=nome)
+            return TCC.objects.filter(titulo=self.request.user, titulo__icontains=nome)
         else:
-            return TCC.objects.filter(usuario=self.request.user)
+            return TCC.objects.filter(titulo=self.request.user)
 
 class TCCAutorList(ListView):
     model = TCC
@@ -90,9 +90,9 @@ class TCCAutorList(ListView):
         nome = self.request.GET.get('nome')
 
         if nome:
-            return TCC.objects.filter(publicado=True, autor=Autor.objects.get(pk=self.kwargs['autor']), titulo__icontains=nome)
+            return TCC.objects.filter(autor=Autor.objects.get(pk=self.kwargs['autor']), titulo__icontains=nome)
         else:
-            return TCC.objects.filter(publicado=True, autor=Autor.objects.get(pk=self.kwargs['autor']))
+            return TCC.objects.filter(autor=Autor.objects.get(pk=self.kwargs['autor']))
 
 class TCCCursoList(ListView):
     model = TCC
@@ -103,6 +103,19 @@ class TCCCursoList(ListView):
         nome = self.request.GET.get('nome')
 
         if nome:
-            return TCC.objects.filter(publicado=True, editora=Curso.objects.get(pk=self.kwargs['curso']), titulo__icontains=nome)
+            return TCC.objects.filter(curso=Curso.objects.get(pk=self.kwargs['curso']), titulo__icontains=nome)
         else:
-            return TCC.objects.filter(publicado=True, editora=Curso.objects.get(pk=self.kwargs['curso']))
+            return TCC.objects.filter(curso=Curso.objects.get(pk=self.kwargs['curso']))
+
+class TCCOrientadorList(ListView):
+    model = TCC
+    template_name = "index.html"
+    paginate_by = 6
+
+    def get_queryset(self):
+        nome = self.request.GET.get('nome')
+
+        if nome:
+            return TCC.objects.filter(orientador=Orientador.objects.get(pk=self.kwargs['orientador']), titulo__icontains=nome)
+        else:
+            return TCC.objects.filter(orientador=Orientador.objects.get(pk=self.kwargs['orientador']))

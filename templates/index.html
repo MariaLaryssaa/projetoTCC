@@ -6,7 +6,7 @@
 {% block conteudo %}
     {% include 'partils/_alertas.html' %}
     <div class="page-header text-center py-3">
-        <h1>TCCs</h1>
+        <h1>Meus TCCs</h1>
         <hr>
     </div>
     <form action="?" method="GET">
@@ -20,11 +20,6 @@
         <div class="col-sm-4">
             <div class="card" style="width: 18rem;">
                 <a href="{% url 'detalhar_tcc_publicado' tcc.id %}">
-                {% if tcc.capa == '' %}
-                    <img src="{% static 'img/tcc.png' %}" class="card-img-top" alt="...">
-                {% else %}
-                    <img src="{{ tcc.capa.url }}" class="card-img-top" alt="...">
-                {% endif %}
                 </a>
                 <div class="card-body">
                     <a href="{% url 'detalhar_tcc_publicado' tcc.id %}" class="text-decoration-none text-reset"><h5 class="card-title">{{ tcc.titulo }}</h5></a>

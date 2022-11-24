@@ -17,10 +17,9 @@
         <table class="table table-striped" id="tabela-listar">
             <thead>
                 <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Data de nascimento</th>
-                    <th scope="col">Nacionalidade</th>
-                    <th scope="col">Sexo</th>
+                    <th scope="col">Primeiro Nome</th>
+                    <th scope="col">Segundo Nome</th>
+                    <th scope="col">Foto</th>
                     <th scope="col">TCC</th>
                     {% if request.user.is_authenticated %}
                     <th scope="col">Ações</th>
@@ -30,10 +29,9 @@
             <tbody>
             {% for autor in object_list %}
                 <tr>
-                    <td>{{ autor.nome }}</td>
-                    <td>{{ autor.data_nasc }}</td>
-                    <td>{{ autor.nacionalidade }}</td>
-                    <td>{{ autor.get_sexo_display }}</td>
+                    <td>{{ autor.primeiro_nome }}</td>
+                    <td>{{ autor.ultimo_nome }}</td>
+                    <td><a href="{{ autor.foto }}">Abrir</a></td>
                     <td>
                         <a href="{% url 'listar_tcc_autor' autor.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-book"></i> TCCs</a>
                     </td>

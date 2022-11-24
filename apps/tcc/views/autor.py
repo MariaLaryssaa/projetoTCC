@@ -1,5 +1,5 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, View
+from django.views.generic import ListView
 from apps.tcc.models import Autor
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -51,7 +51,7 @@ class AutorDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(DeleteView, self).get_context_data(**kwargs)
-        context['titulo'] = 'Autores - Biblioteca'
+        context['titulo'] = 'Autores - Arquivos'
         return context
 
     def delete(self, request, *args, **kwargs):
